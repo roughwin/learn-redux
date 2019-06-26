@@ -7,20 +7,6 @@ import logo from './logo.svg';
 import './App.css';
 import './store';
 
-class Demo extends React.Component {
-  componentDidMount() {
-    if (this.props.hello) {
-      this.props.hello()
-    }
-    this.props.hello2()
-  }
-
-  render() {
-    console.log('props', this.props)
-    return <div>hello</div>
-  }
-}
-
 const mapStateToProps = state => {
   return {
     todos: state //(state.todos, state.visibilityFilter)
@@ -36,10 +22,23 @@ const mapDispatchToProps = dispatch => {
   // }
 }
 
-const X = connect(
+@connect(
   mapStateToProps,
   mapDispatchToProps
-)(Demo)
+)
+class X extends React.Component {
+  componentDidMount() {
+    if (this.props.hello) {
+      this.props.hello()
+    }
+    this.props.hello2()
+  }
+
+  render() {
+    console.log('props', this.props)
+    return <div>hello</div>
+  }
+}
 
 function App() {
   return (
