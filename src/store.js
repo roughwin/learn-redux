@@ -4,7 +4,6 @@ import reduxThunkMiddleware from 'redux-thunk'
 const reducer = (state={}, action) => {
   switch (action.type) {
     default:
-      console.log('hi action', action, state)
       return {
         a: 'abc'
       }
@@ -14,19 +13,21 @@ const reducer = (state={}, action) => {
 const reducer2 = (state = {}, action) => {
   switch(action.type) {
     default:
-      console.log('hi action in reducer 2', action)
       return {
         b: new Date()
       }
   }
 }
 
+const isProduction = process.env.NODE_ENV === 'production';
+const reduxDevtool = (window.__REDUX_DEVTOOLS_EXTENSION__ && !isProduction) ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f
+
 const store = createStore(
   combineReducers({reducer, reducer2}),
   {},
   compose(
     applyMiddleware(reduxThunkMiddleware),
-    window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f
+    reduxDevtool
   )
 )
 
