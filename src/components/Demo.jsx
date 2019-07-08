@@ -32,14 +32,15 @@ class X extends React.Component {
   }
 
   hello = () => {
-    console.log(this)
+    // console.log(this)
+    this.props.hello()
   }
 
   render() {
-    console.log('props', this.props)
+    // console.log('props', this.props)
     return <div>
       <div>hello</div>
-      <button onClick={this.hello}>click</button>
+      <button onClick={this.hello}>hello</button>
     </div>
   }
 }

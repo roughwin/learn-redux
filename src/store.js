@@ -1,4 +1,4 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux'
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import reduxThunkMiddleware from 'redux-thunk'
 
 const reducer = (state={}, action) => {
@@ -11,7 +11,24 @@ const reducer = (state={}, action) => {
   }
 }
 
-const store = createStore(combineReducers({reducer}), {}, applyMiddleware(reduxThunkMiddleware))
+const reducer2 = (state = {}, action) => {
+  switch(action.type) {
+    default:
+      console.log('hi action in reducer 2', action)
+      return {
+        b: new Date()
+      }
+  }
+}
+
+const store = createStore(
+  combineReducers({reducer, reducer2}),
+  {},
+  compose(
+    applyMiddleware(reduxThunkMiddleware),
+    window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f
+  )
+)
 
 export default store;
 
