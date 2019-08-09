@@ -12,11 +12,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(actions, dispatch)
-  // return {
-  //   onTodoClick: id => {
-  //     dispatch({type: '123'})
-  //   }
-  // }
 }
 
 @connect(
@@ -31,9 +26,12 @@ class X extends React.Component {
     this.props.hello2()
   }
 
-  hello = () => {
+  hello = async () => {
     // console.log(this)
     this.props.hello()
+    // await this.props.helloasync()
+    console.log(this.props.helloasync)
+    this.props.hello2()
   }
 
   render() {
