@@ -2,7 +2,7 @@ import React from 'react';
 import { connect, Provider } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import store from '../store'
-import * as actions from '../actions'
+import * as actions from '../store/action'
 
 const mapStateToProps = state => {
   return {
@@ -21,9 +21,9 @@ const mapDispatchToProps = dispatch => {
 class X extends React.Component {
   componentDidMount() {
     if (this.props.hello) {
-      this.props.hello()
+      this.props.hello({ test: 'haha' })
     }
-    this.props.hello2()
+    // this.props.hello2()
   }
 
   hello = async () => {
