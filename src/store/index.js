@@ -2,12 +2,12 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import reduxThunkMiddleware from 'redux-thunk'
 import { fork, all } from 'redux-saga/effects';
 import createSagaMiddleware from 'redux-saga'
+import promiseMiddleware from 'redux-promise';
 
 import * as saga from './saga';
 
 import reducer from './reducer';
 
-console.log(saga)
 
 function generateFork(sagaArray) {
   return Object.keys(sagaArray).map(item => fork(sagaArray[item]));
@@ -15,7 +15,7 @@ function generateFork(sagaArray) {
 
 function* root() {
   const sagaFork = generateFork(saga);
-  yield all([sagaFork]);
+  yield all([...sagaFork]);
 }
 
 const sagaMiddleware = createSagaMiddleware()
@@ -37,6 +37,7 @@ const store = createStore(
   compose(
     applyMiddleware(sagaMiddleware),
     // applyMiddleware(reduxThunkMiddleware),
+    applyMiddleware(promiseMiddleware),
     reduxDevtool
   )
 )
