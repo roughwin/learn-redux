@@ -11,7 +11,7 @@ import X from './components/Demo';
 import AudioDemo from './components/audio';
 import './App.css';
 
-Sentry.init({dsn: "http://52e07db925d44fa2a4ed9e019f9eba2c@172.24.128.28:9000/2", release: '123'});
+Sentry.init({dsn: "http://52e07db925d44fa2a4ed9e019f9eba2c@172.24.128.28:9000/2", release: '1234'});
 
 function App() {
   return (
@@ -20,6 +20,7 @@ function App() {
       <button
         onClick={() => {
           word.ready()
+          throw new Error('test');
         }}
       >
        start

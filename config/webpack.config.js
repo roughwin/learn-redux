@@ -5,7 +5,7 @@ const isWsl = require('is-wsl');
 const path = require('path');
 const webpack = require('webpack');
 const resolve = require('resolve');
-const SentryPlugin = require('webpack-sentry-plugin-plus');
+const SentryPlugin = require('./sentry-plus');
 const PnpWebpackPlugin = require('pnp-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
@@ -480,18 +480,6 @@ module.exports = function(webpackEnv) {
       ],
     },
     plugins: [
-      new SentryPlugin({
-        // Sentry options are required
-        organization: 'sentry',
-        project: 'hello',
-        apiKey: '8424a4c6a9e1430a8d8cc3b2d877f407195879cb9ecc4b1ebde1bc631ca7a239',
-        include: /.*\.js($|.map)/,
-        // Release version name/hash is required
-        suppressConflictError: true,
-        uploadFilesConcurrency: 5,
-        release: '123',
-        baseSentryURL: 'http://172.24.128.28:9000/api/0',
-      }),
       // Generates an `index.html` file with the <script> injected.
       new HtmlWebpackPlugin(
         Object.assign(
@@ -624,6 +612,18 @@ module.exports = function(webpackEnv) {
           silent: true,
           // The formatter is invoked directly in WebpackDevServerUtils during development
           formatter: isEnvProduction ? typescriptFormatter : undefined,
+        }),
+        new SentryPlugin({
+          // Sentry options are required
+          organization: 'sentry',
+          project: 'hello',
+          apiKey: '8424a4c6a9e1430a8d8cc3b2d877f407195879cb9ecc4b1ebde1bc631ca7a239',
+          include: /.*\.js($|.map)/,
+          // Release version name/hash is required
+          suppressConflictError: true,
+          uploadFilesConcurrency: 5,
+          release: '1234',
+          baseSentryURL: 'http://172.24.128.28:9000/api/0',
         }),
     ].filter(Boolean),
     // Some libraries import Node modules but don't use them in the browser.
